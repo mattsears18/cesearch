@@ -1,5 +1,5 @@
 {
-  "name": "cesearch",
+  "name": "puggity-project",
   "private": true,
   "version": "0.0.0",
   "description": "a Sails application",
@@ -19,6 +19,7 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.5.2",
     "include-all": "^1.0.0",
+    "pug": "^2.0.0-beta11",
     "rc": "1.0.1",
     "sails": "~0.12.11",
     "sails-disk": "~0.10.9"
@@ -30,8 +31,8 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/mattsears18/cesearch.git"
+    "url": "git://github.com/mattsears/puggity-project.git"
   },
-  "author": "Matthew H. Sears",
-  "license": "MIT"
+  "author": "mattsears",
+  "license": ""
 }
