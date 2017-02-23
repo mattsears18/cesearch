@@ -1,0 +1,7 @@
+h1 #{issue.journal.name}
+h2 Volume ##{issue.volume_number}, Issue ##{issue.issue_number}
+h3 Articles
+ul
+  each article in issue.articles
+    li
+      a(href="/article/" + article.id) #{article.name}

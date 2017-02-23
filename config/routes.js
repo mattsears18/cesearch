@@ -33,7 +33,9 @@ module.exports.routes = {
   ***************************************************************************/
 
   '/': { view: 'homepage' },
-  'GET /journal/:id': 'JournalController.show'
+  'GET /journal/:id':   'JournalController.show',
+  'GET /issue/:id':     'IssueController.show',
+  'GET /article/:id':   'ArticleController.show',
 
   /***************************************************************************
   *                                                                          *
