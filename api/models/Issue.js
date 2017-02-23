@@ -14,5 +14,10 @@ module.exports = {
     journal:	      { model: 'journal' },
 
     articles:       { collection: 'article', via: 'issue' },
+
+
+    month: function() {
+      return 'Month';
+    }
   }
 };
