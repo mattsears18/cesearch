@@ -8,7 +8,7 @@
 var express = require('express');
 var fs = require('fs');
 var request = require('request');
-var cheerio = require('cheerio');
+var $ = require('cheerio');
 var app     = express();
 
 module.exports = {
@@ -20,10 +20,31 @@ module.exports = {
 		request({url, headers: {Cookie: cookie}}, function(error, response, html) {
 
 	    if(!error){
-        var $ = cheerio.load(html);
+        var $html = $(html);
 
-		    var title, release, rating;
-		    var json = { title : "", release : "", rating : ""};
+				var $issues = $html.find('.yearContent .row');
+
+				var all_issues = [];
+
+				$issues.each(function(i, issue){
+					$issue = $(issue);
+
+					var issue_href = $issue.find('a').attr('href');
+
+					var issue_number = issue_href.split('/')[4];
+					var volume_number = issue_href.split('/')[3];
+
+					var regExp = /\(([^)]+)\)/;
+
+					var date = $issue.find('.loiIssueCoverDateText').first().text().match(regExp)[1];
+					var journal = '58a8d396ec7d9d1100a9475f';
+
+					var issue_data = { issue_number: issue_number, volume_number: volume_number, date: date, journal: journal };
+
+					console.log(issue_data);
+
+					all_issues.push(issue_data);
+				});
 
 				res.send(html);
 			}
@@ -34,11 +55,11 @@ module.exports = {
 			// Parameter 2 :  JSON.stringify(json, null, 4) - the data to write, here we do an extra step by calling JSON.stringify to make our JSON easier to read
 			// Parameter 3 :  callback function - a callback function to let us know the status of our function
 
-			//fs.writeFile('output.json', JSON.stringify(json, null, 4), function(err){
+			fs.writeFile('./data/issues.json', JSON.stringify(all_issues, null, 4), function(err){
 
-			  //  console.log('File successfully written! - Check your project directory for the output.json file');
+			    console.log('File successfully written! - Check your project directory for the output.json file');
 
-			//});
+			});
 
 			// Finally, we'll just send out a message to the browser reminding you that this app does not have a UI.
 			//res.send('Check your console!');

@@ -21,6 +21,7 @@
     "grunt-sails-linker": "~0.10.1",
     "grunt-sync": "0.5.2",
     "include-all": "^1.0.0",
+    "jQuery": "^1.7.4",
     "pug": "^2.0.0-beta11",
     "rc": "1.0.1",
     "request": "^2.79.0",
