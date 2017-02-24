@@ -18,6 +18,10 @@ module.exports = {
 
     month: function() {
       return 'Month';
+    },
+
+    year: function() {
+      return 'Year';
     }
   }
 };
