@@ -1,0 +1,13 @@
+.mt15 { margin-top: 15px; }
+
+.mb5 { margin-bottom: 5px; }
+
+.ml10 {margin-left: 10px; }
+.ml15 {margin-left: 15px; }
+
+.initiallyHidden { display: none; }
+
+body { margin-bottom: 50px; }
+
+.text-gray { color: #999; }
+.text-gray a { color: #999; }

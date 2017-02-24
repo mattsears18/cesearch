@@ -6,6 +6,14 @@
  */
 
 module.exports = {
+	index: function(req, res) {
+		Journal.find().populate('issues').exec(function (err, journals){
+		  if (err) return res.serverError(err);
+
+			return res.view('journal/index', { journals: journals });
+		});
+	},
+
 	show: function(req, res) {
 		Journal.findOne({ id: req.params.id }).populate('issues').exec(function (err, journal){
 		  if (err) return res.serverError(err);
