@@ -36,6 +36,7 @@ module.exports.routes = {
 
   'GET /scraper':       { view: 'scraper/index' },
   'GET /scraper/start': 'ScraperController.scrape',
+  'GET /scraper/test':  'ScraperController.test',
 
   'GET /journal/:id':   'JournalController.show',
   'GET /journal':       'JournalController.index',

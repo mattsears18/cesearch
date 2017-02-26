@@ -64,43 +64,77 @@ var scrapeJournal = function(journal) {
 }
 
 var scrapeIssue = function(issue) {
-	console.log(issue);
+	var uri = issue.uri;
 	console.log(issue.uri);
-/*
-	request({uri, headers: {Cookie: COOKIE}}, function(error, response, html) {
 
+	request({uri, headers: {Cookie: COOKIE}}, function(error, response, html) {
 		if(!error){
 			var $html = $(html);
 
-			var $articles = $html.find('.yearContent .row');
+			var $headings = $html.find('subject');
 
+			$headings.each(function(i, h){
+				var $h = $(h);
+				if($h.text().trim().toUpperCase() == 'TECHNICAL PAPERS') {
+					$h.nextUntil('subject', function(j, article) {
+						var $article = $(article);
+						var name = $article.find('div.art_title span.hlFld-Title').text().trim();
+						var article_uri = 'http://ascelibrary.org' + $article.find('div a').attr('href');
 
-			$issues.each(function(i, issue){
+						var article_data = { name: name, uri: article_uri, issue: issue };
 
-				$issue = $(issue);
-
-				var issue_href = $issue.find('a').attr('href');
-
-				var issue_number = issue_href.split('/')[4];
-				var volume_number = issue_href.split('/')[3];
-
-				var regExp = /\(([^)]+)\)/;
-
-				var date = $issue.find('.loiIssueCoverDateText').first().text().match(regExp)[1];
-
-				var issue_data = { issue_number: issue_number, volume_number: volume_number, date: date, journal: newJournal.id };
-
-				var newIssue = Issue.findOrCreate(issue_data).exec(function(err, issue){
-					scrapeIssue(issue);
-				});
+						var newArticle = Article.findOrCreate(article_data).exec(function(err, article){
+							console.log(article);
+						});
+					});
+				}
 			});
-
 		}
 	});
-	*/
 }
 
 
+
+
 module.exports = {
-	scrape: scrape
+	scrape: scrape,
+
+	test: function(req, res) {
+		var issue = Issue.findOne({id: '58b254c1bed762474e7e53fa'}).exec(function(err, issue){
+			var uri = issue.uri;
+
+			request({uri, headers: {Cookie: COOKIE}}, function(error, response, html) {
+				if(!error){
+					var $html = $(html);
+
+					var $headings = $html.find('subject');
+
+					res.send(200, $headings.length);
+
+					$headings.each(function(i, h){
+						var $h = $(h);
+						if($h.text().trim().toUpperCase() == 'TECHNICAL PAPERS') {
+							console.log('');
+							console.log('');
+							console.log('=================================');
+							console.log($h.text());
+							console.log('=================================');
+
+							$h.nextUntil('subject', function(j, article) {
+								var $article = $(article);
+								var name = $article.find('div.art_title span.hlFld-Title').text().trim();
+								var article_uri = 'http://ascelibrary.org' + $article.find('div a').attr('href');
+
+								var article_data = { name: name, uri: article_uri, issue: issue };
+
+								var newArticle = Article.findOrCreate(article_data).exec(function(err, article){
+									console.log(article);
+								});
+							});
+						}
+					});
+				}
+			});
+		});
+	}
 }

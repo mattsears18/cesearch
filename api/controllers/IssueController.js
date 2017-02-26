@@ -7,7 +7,7 @@
 
 module.exports = {
 	show: function(req, res) {
-		Issue.findOne({ id: req.params.id }).populate('articles').populate('journal').exec(function (err, issue){
+		Issue.findOne({ id: req.params.id }).populate('articles', { sort: 'name' }).populate('journal').exec(function (err, issue){
 		  if (err) return res.serverError(err);
 
 			return res.view('issue/show', { issue: issue });
