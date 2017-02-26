@@ -50,9 +50,9 @@ var scrapeJournal = function(journal) {
 
 					var date = $issue.find('.loiIssueCoverDateText').first().text().match(regExp)[1];
 
-					var issue_data = { issue_number: issue_number, volume_number: volume_number, date: date, journal: newJournal.id };
+					var issue_data = { issue_number: issue_number, volume_number: volume_number, date: date, journal: newJournal };
 
-					var newIssue = Issue.findOrCreate(issue_data).populate('journal').exec(function(err, newIssue){
+					var newIssue = Issue.findOrCreate(issue_data).exec(function(err, newIssue){
 						scrapeIssue(newIssue);
 					});
 				});
@@ -62,8 +62,8 @@ var scrapeJournal = function(journal) {
 }
 
 var scrapeIssue = function(issue) {
-	var uri = 'http://ascelibrary.org/toc/' + issue.journal.abbrev + '/' + issue.volume_number + '/' + issue.issue_number;
-	console.log(uri);
+	console.log(issue);
+	console.log(issue.getUri());
 /*
 	request({uri, headers: {Cookie: COOKIE}}, function(error, response, html) {
 

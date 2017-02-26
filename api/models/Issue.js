@@ -20,5 +20,6 @@ module.exports = {
     // ATTRIBUTE METHODS
     getMonth: function() { return 'Month'; },
     getYear: function() { return 'Year'; },
+    getUri: function() { return 'http://ascelibrary.org/toc/' + this.journal.abbrev + '/' + this.volume_number + '/' + this.issue_number; },
   }
 };
