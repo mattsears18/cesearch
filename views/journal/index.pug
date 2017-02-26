@@ -2,10 +2,9 @@ extends ../layout
 
 block content
   div(class="container")
-    div(class="row")
-      h3 #{journals.length} Journals
-      ul
-        each journal in journals
-          li
-            a(href="/journal/" + journal.id) #{journal.name}
-            span &nbsp; #{journal.issues.length}
+    h3 #{journals.length} Journals
+    ul
+      each journal in journals
+        li
+          a(href="/journal/" + journal.id) #{journal.name}
+          span &nbsp; #{journal.issues.length}

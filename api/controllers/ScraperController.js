@@ -8,13 +8,12 @@
 var fs = require('fs');
 var request = require('request');
 var $ = require('cheerio');
+var utility = require('../services/utility');
 
 var COOKIE = "I2KBRCK=1; JSESSIONID=aaa85T3KL8GE5cmcdoRPv; MACHINE_LAST_SEEN=2017-02-23T17%3A55%3A06.481-08%3A00; MAID=AvStR0Q1F/ZiaXXY5v1L3g==; SERVER=WZ6myaEXBLEcZv1pIhVX+g==; _dc_gtm_UA-56132535-29=1; _dc_gtm_UA-8940040-23=1; _ga=GA1.2.1187409641.1487820890; _hjIncludedInSample=1";
 
 var scrape = function(req, res) {
 	var journals = JSON.parse(fs.readFileSync('./scraper/data/journals.json', 'utf8'));
-
-	var all_issues = [];
 
 	for($i = 0; $i < journals.length; $i++) {
 		scrapeJournal(journals[$i]);
@@ -73,6 +72,7 @@ var scrapeIssues = function(req, res) {
 	// Find all Issues and scrape them with a time delay between each on so that
 	// you don't get banned from ascelibrary.org
 	Issue.find().exec(function(err, issues){
+		//issues = utility.shuffle(issues);
 		var i = 0;
 
 		console.log('=====================');
@@ -95,14 +95,6 @@ var scrapeIssues = function(req, res) {
 			scrapeIssue(issues[i]);
 			i++;
 		}, 2000);
-
-/*
-		for($i=0; $i < issues.length; $i++) {
-			console.log($i + ' of ' + issues.length);
-			console.log('Wait 10 seconds...');
-			setTimeout(function() {scrapeIssue(issues[$i])}, 10000);
-		}
-		*/
 	});
 
 	res.send(200, 'scraping issues...');
@@ -143,44 +135,38 @@ var scrapeIssue = function(issue) {
 
 
 var test = function(req, res) {
-	var issue = Issue.findOne({id: '58b254c1bed762474e7e53fa'}).exec(function(err, issue){
-		var uri = issue.uri;
+	// Find all Issues and scrape them with a time delay between each on so that
+	// you don't get banned from ascelibrary.org
+	Issue.find().where({ articles: { '=': undefined }}).exec(function(err, issues){
+		console.log(issues.length);
+/*
+		issues = utility.shuffle(issues);
+		var i = 0;
 
-		request({uri, headers: {Cookie: COOKIE}}, function(error, response, html) {
-			if(!error){
-				var $html = $(html);
+		console.log('=====================');
+		console.log('');
+		console.log('');
+		console.log('Waiting 2 seconds...');
+		console.log('');
+		console.log('');
+		console.log('=====================');
 
-				var $headings = $html.find('subject');
+		setInterval(function() {
+			console.log('=====================');
+			console.log('');
+			console.log('');
+			console.log('Waiting 2 seconds...');
+			console.log('');
+			console.log('');
+			console.log('=====================');
 
-				res.send(200, $headings.length);
-
-				$headings.each(function(i, h){
-					var $h = $(h);
-					if($h.text().trim().toUpperCase() == 'TECHNICAL PAPERS') {
-						console.log('');
-						console.log('');
-						console.log('=================================');
-						console.log($h.text());
-						console.log('=================================');
-
-						$h.nextUntil('subject', function(j, article) {
-							var $article = $(article);
-							var name = $article.find('div.art_title span.hlFld-Title').text().trim();
-							var article_uri = 'http://ascelibrary.org' + $article.find('div a').attr('href');
-
-							var article_data = { name: name, uri: article_uri, issue: issue };
-
-							var newArticle = Article.findOrCreate(article_data).exec(function(err, article){
-								console.log(article);
-							});
-						});
-					}
-				});
-			} else {
-				console.log('ERROR!');
-			}
-		});
+			scrapeIssue(issues[i]);
+			i++;
+		}, 2000);
+		*/
 	});
+
+	res.send(200, 'scraping issues...');
 }
 
 

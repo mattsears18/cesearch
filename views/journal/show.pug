@@ -2,10 +2,9 @@ extends ../layout
 
 block content
   div(class="container")
-    div(class="row")
-      h2 #{journal.name}
-      h4 Issues
-      ul
-        each issue in journal.issues
-          li
-            a(href="/issue/" + issue.id) ##{issue.issue_number} (#{issue.getMonth()} #{issue.getYear()})
+    h2 #{journal.name}
+    h4 Issues
+    ul
+      each issue in journal.issues
+        li
+          a(href="/issue/" + issue.id) ##{issue.issue_number} (#{issue.getMonth()} #{issue.getYear()})
