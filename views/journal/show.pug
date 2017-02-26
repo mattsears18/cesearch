@@ -8,4 +8,4 @@ block content
       ul
         each issue in journal.issues
           li
-            a(href="/issue/" + issue.id) ##{issue.issue_number} (#{issue.month()} #{issue.year()})
+            a(href="/issue/" + issue.id) ##{issue.issue_number} (#{issue.getMonth()} #{issue.getYear()})

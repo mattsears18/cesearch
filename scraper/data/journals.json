@@ -1,192 +1,192 @@
 [
   {
     "name": "Journal of Aerospace Engineering",
-    "uri": "http://ascelibrary.org/journal/jaeeez",
+    "abbrev": "jaeeez",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Architectural Engineering",
-    "uri": "http://ascelibrary.org/loi/jaeied",
+    "abbrev": "jaeied",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Bridge Engineering",
-    "uri": "http://ascelibrary.org/loi/jbenf2",
+    "abbrev": "jbenf2",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Cold Regions Engineering",
-    "uri": "http://ascelibrary.org/loi/jcrgei",
+    "abbrev": "jcrgei",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Composites for Construction",
-    "uri": "http://ascelibrary.org/loi/jccof2",
+    "abbrev": "jccof2",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Computing in Civil Engineering",
-    "uri": "http://ascelibrary.org/loi/jccee5",
+    "abbrev": "jccee5",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Construction Engineering and Management",
-    "uri": "http://ascelibrary.org/loi/jcemd4",
+    "abbrev": "jcemd4",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Energy Engineering",
-    "uri": "http://ascelibrary.org/loi/jleed9",
+    "abbrev": "jleed9",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Engineering Mechanics",
-    "uri": "http://ascelibrary.org/loi/jenmdt",
+    "abbrev": "jenmdt",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Environmental Engineering",
-    "uri": "http://ascelibrary.org/loi/joeedu",
+    "abbrev": "joeedu",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "International Journal of Geomechanics",
-    "uri": "http://ascelibrary.org/loi/ijgnai",
+    "abbrev": "ijgnai",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Geotechnical and Geoenvironmental Engineering",
-    "uri": "http://ascelibrary.org/loi/jggefk",
+    "abbrev": "jggefk",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Hazardous, Toxic, and Radioactive Waste",
-    "uri": "http://ascelibrary.org/loi/jhtrbp",
+    "abbrev": "jhtrbp",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Highway and Transportation Research and Development (English Edition)",
-    "uri": "http://ascelibrary.org/loi/jhtrcq",
+    "abbrev": "jhtrcq",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Hydraulic Engineering",
-    "uri": "http://ascelibrary.org/loi/jhend8",
+    "abbrev": "jhend8",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Hydrologic Engineering",
-    "uri": "http://ascelibrary.org/loi/jhyeff",
+    "abbrev": "jhyeff",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Infrastructure Systems",
-    "uri": "http://ascelibrary.org/loi/jitse4",
+    "abbrev": "jitse4",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Irrigation and Drainage Engineering",
-    "uri": "http://ascelibrary.org/loi/jidedh",
+    "abbrev": "jidedh",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Leadership and Management in Engineering",
-    "uri": "http://ascelibrary.org/loi/lmeeaz",
+    "abbrev": "lmeeaz",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Legal Affairs and Dispute Resolution in Engineering and Construction",
-    "uri": "http://ascelibrary.org/loi/jladah",
+    "abbrev": "jladah",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Management in Engineering",
-    "uri": "http://ascelibrary.org/loi/jmenea",
+    "abbrev": "jmenea",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Materials in Civil Engineering",
-    "uri": "http://ascelibrary.org/loi/jmcee7",
+    "abbrev": "jmcee7",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Nanomechanics and Micromechanics",
-    "uri": "http://ascelibrary.org/loi/jnmoco",
+    "abbrev": "jnmoco",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Natural Hazards Review",
-    "uri": "http://ascelibrary.org/loi/nhrefo",
+    "abbrev": "nhrefo",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Performance of Constructed Facilities",
-    "uri": "http://ascelibrary.org/loi/jpcfev",
+    "abbrev": "jpcfev",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Pipeline Systems Engineering and Practice",
-    "uri": "http://ascelibrary.org/loi/jpsea2",
+    "abbrev": "jpsea2",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Professional Issues in Engineering Education and Practice",
-    "uri": "http://ascelibrary.org/loi/jpepe3",
+    "abbrev": "jpepe3",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "ASCE-ASME Journal of Risk and Uncertainty in Engineering Systems, Part A: Civil Engineering",
-    "uri": "http://ascelibrary.org/loi/ajrua6",
+    "abbrev": "ajrua6",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "ASCE-ASME Journal of Risk and Uncertainty in Engineering Systems, Part B: Mechanical Engineering",
-    "uri": "http://ascelibrary.org/loi/ajrub7",
+    "abbrev": "ajrub7",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Practice Periodical on Structural Design and Construction",
-    "uri": "http://ascelibrary.org/loi/ppscfx",
+    "abbrev": "ppscfx",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Structural Engineering",
-    "uri": "http://ascelibrary.org/loi/jsendh",
+    "abbrev": "jsendh",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Surveying Engineering",
-    "uri": "http://ascelibrary.org/loi/jsued2",
+    "abbrev": "jsued2",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Sustainable Water in the Built Environment",
-    "uri": "http://ascelibrary.org/loi/jswbay",
+    "abbrev": "jswbay",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Transportation Engineering, Part A: Systems",
-    "uri": "http://ascelibrary.org/loi/jtepbs",
+    "abbrev": "jtepbs",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Transportation Engineering, Part B: Pavements",
-    "uri": "http://ascelibrary.org/loi/jpeodx",
+    "abbrev": "jpeodx",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Urban Planning and Development",
-    "uri": "http://ascelibrary.org/loi/jupddm",
+    "abbrev": "jupddm",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Water Resources Planning and Management",
-    "uri": "http://ascelibrary.org/loi/jwrmd5",
+    "abbrev": "jwrmd5",
     "publisher": "American Society of Civil Engineers"
   },
   {
     "name": "Journal of Waterway, Port, Coastal, and Ocean Engineering",
-    "uri": "http://ascelibrary.org/loi/jwped5",
+    "abbrev": "jwped5",
     "publisher": "American Society of Civil Engineers"
   }
 ]

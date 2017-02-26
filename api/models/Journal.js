@@ -9,8 +9,14 @@ module.exports = {
   attributes: {
 		name:						{ type: 'string' },
     publisher:      { type: 'string' },
+    abbrev:         { type: 'string' },
 	  uri: 						{ type: 'string' },
 
+    // RELATIONSHIPS
 	  issues:			 		{ collection: 'issue', via: 'journal' },
+
+
+    // ATTRIBUTE METHODS
+    getUri: function() { return 'http://ascelibrary.org/journal/' + this.abbrev; },  
   }
 };

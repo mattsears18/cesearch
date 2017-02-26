@@ -10,18 +10,15 @@ module.exports = {
 		issue_number:		{ type: 'integer' },
     volume_number:	{ type: 'integer' },
     date:           { type: 'date' },
+    uri:            { type: 'string' },
 
+    // RELATIONSHIPS
     journal:	      { model: 'journal' },
-
     articles:       { collection: 'article', via: 'issue' },
 
 
-    month: function() {
-      return 'Month';
-    },
-
-    year: function() {
-      return 'Year';
-    }
+    // ATTRIBUTE METHODS
+    getMonth: function() { return 'Month'; },
+    getYear: function() { return 'Year'; },
   }
 };
