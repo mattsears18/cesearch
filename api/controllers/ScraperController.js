@@ -50,7 +50,9 @@ var scrapeJournal = function(journal) {
 
 					var date = $issue.find('.loiIssueCoverDateText').first().text().match(regExp)[1];
 
-					var issue_data = { issue_number: issue_number, volume_number: volume_number, date: date, journal: newJournal };
+					var issue_uri = 'http://ascelibrary.org/toc/' + newJournal.abbrev + '/' + volume_number + '/' + issue_number;
+
+					var issue_data = { issue_number: issue_number, volume_number: volume_number, date: date, uri: issue_uri, journal: newJournal };
 
 					var newIssue = Issue.findOrCreate(issue_data).exec(function(err, newIssue){
 						scrapeIssue(newIssue);
@@ -63,7 +65,7 @@ var scrapeJournal = function(journal) {
 
 var scrapeIssue = function(issue) {
 	console.log(issue);
-	console.log(issue.getUri());
+	console.log(issue.uri);
 /*
 	request({uri, headers: {Cookie: COOKIE}}, function(error, response, html) {
 
