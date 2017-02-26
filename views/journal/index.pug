@@ -8,3 +8,4 @@ block content
         each journal in journals
           li
             a(href="/journal/" + journal.id) #{journal.name}
+            span &nbsp; #{journal.issues.length}
