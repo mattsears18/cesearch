@@ -72,8 +72,21 @@ var scrapeIssues = function(req, res) {
 	// Find all Issues and scrape them with a time delay between each on so that
 	// you don't get banned from ascelibrary.org
 	Issue.find().exec(function(err, issues){
-		//issues = utility.shuffle(issues);
-		var i = 0;
+		issues = utility.shuffle(issues);
+		//console.log(issues);
+		var fissues = [];
+
+		issues.forEach(function(iss) {
+			Article.find({ issue: iss.id }).exec(function(err, articles){
+				if( ! articles.length) {
+					//console.log('No Articles for issue: ' + iss.id);
+					// NO ARTICLES!
+					fissues.push(iss);
+				} else {
+					//console.log('Articles found for issue: ' + iss.id);
+				}
+			});
+		});
 
 		console.log('=====================');
 		console.log('');
@@ -84,6 +97,7 @@ var scrapeIssues = function(req, res) {
 		console.log('=====================');
 
 		setInterval(function() {
+
 			console.log('=====================');
 			console.log('');
 			console.log('');
@@ -92,8 +106,11 @@ var scrapeIssues = function(req, res) {
 			console.log('');
 			console.log('=====================');
 
-			scrapeIssue(issues[i]);
-			i++;
+			if(fissues.length) {
+				scrapeIssue(fissues.shift());
+			} else {
+				console.log('No issues at the moment...');
+			}
 		}, 2000);
 	});
 
@@ -111,12 +128,23 @@ var scrapeIssue = function(issue) {
 
 			var $headings = $html.find('subject');
 
+			console.log('Headings: ' + $headings.length);
+
 			$headings.each(function(i, h){
 				var $h = $(h);
-				if($h.text().trim().toUpperCase() == 'TECHNICAL PAPERS') {
+				console.log($h.text().trim().toUpperCase());
+
+				var acceptable_headers = [
+					'TECHNICAL PAPERS',
+					'TECHNICAL PAPER',
+					'SCHOLARLY PAPERS',
+				];
+
+				if(acceptable_headers.indexOf($h.text().trim().toUpperCase()) > -1) {
 					$h.nextUntil('subject', function(j, article) {
 						var $article = $(article);
 						var name = $article.find('div.art_title span.hlFld-Title').text().trim();
+						console.log('    ' + name);
 						var article_uri = 'http://ascelibrary.org' + $article.find('div a').attr('href');
 
 						var article_data = { name: name, uri: article_uri, issue: issue.id };
@@ -135,40 +163,10 @@ var scrapeIssue = function(issue) {
 
 
 var test = function(req, res) {
-	// Find all Issues and scrape them with a time delay between each on so that
-	// you don't get banned from ascelibrary.org
-	Issue.find().where({ articles: { '=': undefined }}).exec(function(err, issues){
-		console.log(issues.length);
-/*
-		issues = utility.shuffle(issues);
-		var i = 0;
-
-		console.log('=====================');
-		console.log('');
-		console.log('');
-		console.log('Waiting 2 seconds...');
-		console.log('');
-		console.log('');
-		console.log('=====================');
-
-		setInterval(function() {
-			console.log('=====================');
-			console.log('');
-			console.log('');
-			console.log('Waiting 2 seconds...');
-			console.log('');
-			console.log('');
-			console.log('=====================');
-
-			scrapeIssue(issues[i]);
-			i++;
-		}, 2000);
-		*/
+	Issue.findOne({ uri: 'http://ascelibrary.org/toc/jcemd4/138/7' }).populate('articles').exec(function(err, issue){
+		res.send(issue);
 	});
-
-	res.send(200, 'scraping issues...');
 }
-
 
 
 
