@@ -32,19 +32,22 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'GET /':                { view: 'homepage' },
+  'GET  /':                { view: 'homepage' },
 
-  'GET /scraper':         { view: 'scraper/index' },
-  'GET /scraper/start':   'ScraperController.scrape',
-  'GET /scraper/issues':  'ScraperController.scrapeIssues',
-  'GET /scraper/test':    'ScraperController.test',
+  'GET  /scraper':         { view: 'scraper/index' },
+  'GET  /scraper/start':   'ScraperController.scrape',
+  'GET  /scraper/issues':  'ScraperController.scrapeIssues',
+  'GET  /scraper/test':    'ScraperController.test',
+  'GET  /scraper/upload':  { view: 'scraper/upload' },
+  'POST /scraper/upload':  'ScraperController.upload',
 
-  'GET /journal/:id':     'JournalController.show',
-  'GET /journal':         'JournalController.index',
+  'GET  /journal/:id':     'JournalController.show',
+  'GET  /journal':         'JournalController.list',
 
-  'GET /issue/:id':       'IssueController.show',
+  'GET  /issue/:id':       'IssueController.show',
 
-  'GET /article/:id':     'ArticleController.show',
+  'GET  /article/:id':     'ArticleController.show',
+  
 
   /***************************************************************************
   *                                                                          *

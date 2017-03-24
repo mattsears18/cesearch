@@ -6,7 +6,7 @@
  */
 
 module.exports = {
-	index: function(req, res) {
+	list: function(req, res) {
 		Journal.find().populate('issues').sort('name').exec(function (err, journals){
 		  if (err) return res.serverError(err);
 

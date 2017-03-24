@@ -9,6 +9,8 @@ var fs = require('fs');
 var request = require('request');
 var $ = require('cheerio');
 var utility = require('../services/utility');
+var xlsx = require('xlsx');
+var async = require('async');
 
 var COOKIE = "I2KBRCK=1; JSESSIONID=aaa85T3KL8GE5cmcdoRPv; MACHINE_LAST_SEEN=2017-02-23T17%3A55%3A06.481-08%3A00; MAID=AvStR0Q1F/ZiaXXY5v1L3g==; SERVER=WZ6myaEXBLEcZv1pIhVX+g==; _dc_gtm_UA-56132535-29=1; _dc_gtm_UA-8940040-23=1; _ga=GA1.2.1187409641.1487820890; _hjIncludedInSample=1";
 
@@ -76,12 +78,21 @@ var scrapeIssues = function(req, res) {
 		//console.log(issues);
 		var fissues = [];
 
+		// Erase the log file
+		fs.writeFileSync('./scraper/data/blank_issues.json', '', 'utf8');
+
 		issues.forEach(function(iss) {
 			Article.find({ issue: iss.id }).exec(function(err, articles){
 				if( ! articles.length) {
 					//console.log('No Articles for issue: ' + iss.id);
 					// NO ARTICLES!
 					fissues.push(iss);
+
+					fs.appendFile('./scraper/data/blank_issues.json', iss.uri + '\r\n', function(err){
+						if(err){
+							console.log(err);
+						}
+					});
 				} else {
 					//console.log('Articles found for issue: ' + iss.id);
 				}
@@ -138,6 +149,11 @@ var scrapeIssue = function(issue) {
 					'TECHNICAL PAPERS',
 					'TECHNICAL PAPER',
 					'SCHOLARLY PAPERS',
+					'ARTICLES',
+					'FEATURES',
+					'MANAGEMENT PAPERS',
+					'PAPERS',
+					'PROFESSIONAL PAPERS',
 				];
 
 				if(acceptable_headers.indexOf($h.text().trim().toUpperCase()) > -1) {
@@ -162,6 +178,62 @@ var scrapeIssue = function(issue) {
 }
 
 
+var upload = function(req, res) {
+	req.file('data').upload({
+  	dirname: require('path').resolve(sails.config.appPath, 'uploads')
+	},
+	function (err, files){
+	  if (err) return res.serverError(err);
+
+		var workbook = xlsx.readFile(files[0].fd);
+		var worksheet = workbook.Sheets[workbook.SheetNames[0]];
+
+		var articles = xlsx.utils.sheet_to_json(worksheet);
+
+		async.eachSeries(articles, insertArticle, function(err) {
+			if (err) { throw err; }
+			console.log("");
+			console.log("All done!");
+		});
+
+	  return res.send(200, "Uploaded");
+	});
+}
+
+var insertArticle = function(article, callback){
+	// GET PUBLISHER
+	Publisher.findOrCreate({ name: article.publisher }).exec(function(err, publisher){
+
+		// GET JOURNAL
+		Journal.findOrCreate({ name: article.journal_name }).exec(function(err, journal){
+			journal.publisher = publisher.id;
+			if(article.journal_uri) {
+				journal.uri = article.journal_uri;
+				journal.save();
+			}
+
+			// GET Issue
+			Issue.findOrCreate({ issue_number: article.number, volume_number: article.volume }).exec(function(err, issue) {
+				issue.journal = journal.id;
+				issue.save();
+
+				// GET ARTICLE
+				Article.findOrCreate({ name: article.name, issue: issue.id }).exec(function(err, foundarticle){
+					if(article.uri) {
+						foundarticle.uri = article.uri;
+						foundarticle.save();
+						console.log(article.name);
+
+						// Call callback to insert next article
+						callback();
+					}
+				});
+			});
+		});
+	});
+}
+
+
 var test = function(req, res) {
 	Issue.findOne({ uri: 'http://ascelibrary.org/toc/jcemd4/138/7' }).populate('articles').exec(function(err, issue){
 		res.send(issue);
@@ -171,7 +243,8 @@ var test = function(req, res) {
 
 
 module.exports = {
-	scrape: scrape,
+	scrape,
 	scrapeIssues,
-	test: test,
+	upload,
+	test,
 }

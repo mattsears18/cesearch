@@ -117,4 +117,6 @@ nbproject
 .idea
 .node_history
 
-./data/
+data/
+uploads/
+heroku_1jnbqtql/

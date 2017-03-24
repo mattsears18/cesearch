@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+  div(class="container")
+    div(class="row")
+      h2 Upload Scraped File
+
+      div(class="well well-md")
+        p Uploaded file must be in tabular format (.xlsx .xls or .csv) and must include the following column headers (all lowercase):
+        ul
+          li name (article name)
+          li uri (article uri)
+          li date (issue date)
+          
+        p <strong>Optional</strong> additional column headers:
+        ul
+          li publisher
+          li journal_name
+          li journal_uri
+          li volume (issue volume)
+          li number (issue number)
+        p Column order is not important and additional columns will be ignored.
+
+      form(method="POST" enctype="multipart/form-data")
+        input(type="file" name="data" id="data" class="hidden")
+        button(type="button" class="btn btn-primary" id="file-button" name="file-button") Choose File
+  script(src="/js/scraper-upload.js")
