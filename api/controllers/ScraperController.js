@@ -14,6 +14,7 @@ var async = require('async');
 
 var COOKIE = "I2KBRCK=1; JSESSIONID=aaa85T3KL8GE5cmcdoRPv; MACHINE_LAST_SEEN=2017-02-23T17%3A55%3A06.481-08%3A00; MAID=AvStR0Q1F/ZiaXXY5v1L3g==; SERVER=WZ6myaEXBLEcZv1pIhVX+g==; _dc_gtm_UA-56132535-29=1; _dc_gtm_UA-8940040-23=1; _ga=GA1.2.1187409641.1487820890; _hjIncludedInSample=1";
 
+
 var scrape = function(req, res) {
 	var journals = JSON.parse(fs.readFileSync('./scraper/data/journals.json', 'utf8'));
 
@@ -178,6 +179,9 @@ var scrapeIssue = function(issue) {
 }
 
 
+var counter = 0;
+var articleCount = 0;
+
 var upload = function(req, res) {
 	req.file('data').upload({
   	dirname: require('path').resolve(sails.config.appPath, 'uploads')
@@ -189,6 +193,7 @@ var upload = function(req, res) {
 		var worksheet = workbook.Sheets[workbook.SheetNames[0]];
 
 		var articles = xlsx.utils.sheet_to_json(worksheet);
+		articleCount = articles.length;
 
 		async.eachSeries(articles, insertArticle, function(err) {
 			if (err) { throw err; }
@@ -200,12 +205,17 @@ var upload = function(req, res) {
 	});
 }
 
+
 var insertArticle = function(article, callback){
+
 	// GET PUBLISHER
 	Publisher.findOrCreate({ name: article.publisher }).exec(function(err, publisher){
+		if (err) { console.log(err); }
 
 		// GET JOURNAL
 		Journal.findOrCreate({ name: article.journal_name }).exec(function(err, journal){
+			if (err) { console.log(err); }
+
 			journal.publisher = publisher.id;
 			if(article.journal_uri) {
 				journal.uri = article.journal_uri;
@@ -214,15 +224,23 @@ var insertArticle = function(article, callback){
 
 			// GET Issue
 			Issue.findOrCreate({ issue_number: article.number, volume_number: article.volume }).exec(function(err, issue) {
+				if (err) { console.log(err); }
+
 				issue.journal = journal.id;
 				issue.save();
 
 				// GET ARTICLE
 				Article.findOrCreate({ name: article.name, issue: issue.id }).exec(function(err, foundarticle){
+					if (err) { console.log(err); }
+
 					if(article.uri) {
 						foundarticle.uri = article.uri;
 						foundarticle.save();
-						console.log(article.name);
+						counter++
+						var percent = counter/articleCount*100;
+						percent = percent.toFixed(2);
+
+						console.log(percent + "%   " + counter + " of " + articleCount + " : " + article.name);
 
 						// Call callback to insert next article
 						callback();
