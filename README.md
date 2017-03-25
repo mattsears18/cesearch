@@ -10,4 +10,4 @@ added in the future.
 
 License
 -------
-Article Search is released under the MIT License. See the bundled [LICENSE](https://github.com/mattsears18/articlesearch/blob/master/LICENSE) file for details.
+CE Search is released under the MIT License. See the bundled [LICENSE](https://github.com/mattsears18/cesearch/blob/master/LICENSE) file for details.
