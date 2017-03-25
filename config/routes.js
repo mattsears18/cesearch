@@ -47,7 +47,9 @@ module.exports.routes = {
   'GET  /issue/:id':       'IssueController.show',
 
   'GET  /article/:id':     'ArticleController.show',
-  
+
+  'GET  /test/meh':        'TestController.meh',
+
 
   /***************************************************************************
   *                                                                          *
