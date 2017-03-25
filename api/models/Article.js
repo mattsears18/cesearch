@@ -47,8 +47,6 @@ module.exports = {
       var req = request.head({ uri, headers: {Cookie: cookies.ASCE }}, function(error, response, html) {
         if(error){ console.log(error); }
 
-        console.log(response.headers);
-
         if(response.headers['content-type'] == "application/pdf; charset=UTF-8" || response.headers['content-type'] == "application/pdf") {
           // RECEIVED A PDF
           console.log('PDF Available!');
@@ -60,7 +58,6 @@ module.exports = {
           request({ uri, headers: {Cookie: cookies.ASCE }}).pipe(fs.createWriteStream(filepath)).on('close', function(){
             article.filename = filename;
             article.save();
-            console.log(article);
             article.process();
           });
         } else {
@@ -88,8 +85,6 @@ module.exports = {
             if (err) {
               console.log(err);
             }
-
-            console.log('Text parsed: ' + article.name);
           });
         } else {
           console.log("File does not exist");

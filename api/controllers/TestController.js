@@ -7,7 +7,7 @@
 
 module.exports = {
 	meh: function(req, res) {
-		Article.findOne({ id: "58d6c24f7674c8c01436a645" }).exec(function(err, article){
+		Article.findOne({ id: "58d6c2517674c8c01436a64d" }).exec(function(err, article){
 			return res.json(200, article.process());
 		});
 	}

@@ -12,5 +12,5 @@ module.exports = {
 
       return res.view('article/show', { article: article });
     });
-  }
+  },
 };

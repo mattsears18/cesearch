@@ -251,6 +251,32 @@ var insertArticle = function(article, callback){
 	});
 }
 
+var process = function(req, res) {
+	Article.find({ processed: { '!' : true }}).exec(function(err, articles) {
+		res.json(200, articles);
+
+		articleCount = articles.length;
+
+		async.eachSeries(articles, processArticle, function(err) {
+			if (err) { throw err; }
+			console.log("");
+			console.log("Finished processing Articles!");
+		});
+	});
+}
+
+var processArticle = function(article, callback){
+	setTimeout(function(){
+		article.process();
+		counter++
+		var percent = counter/articleCount*100;
+		percent = percent.toFixed(2);
+
+		console.log(percent + "%   " + counter + " of " + articleCount + " : " + article.name);
+
+		callback();
+	}, 2000);
+}
 
 var test = function(req, res) {
 	Issue.findOne({ uri: 'http://ascelibrary.org/toc/jcemd4/138/7' }).populate('articles').exec(function(err, issue){
@@ -264,5 +290,6 @@ module.exports = {
 	scrape,
 	scrapeIssues,
 	upload,
+	process,
 	test,
 }

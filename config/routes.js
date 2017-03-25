@@ -35,8 +35,9 @@ module.exports.routes = {
   'GET  /':                { view: 'homepage' },
 
   'GET  /scraper':         { view: 'scraper/index' },
-  'GET  /scraper/start':   'ScraperController.scrape',
   'GET  /scraper/issues':  'ScraperController.scrapeIssues',
+  'GET  /scraper/process': 'ScraperController.process',
+  'GET  /scraper/start':   'ScraperController.scrape',
   'GET  /scraper/test':    'ScraperController.test',
   'GET  /scraper/upload':  { view: 'scraper/upload' },
   'POST /scraper/upload':  'ScraperController.upload',
