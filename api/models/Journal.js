@@ -16,7 +16,7 @@ module.exports = {
 	  issues:			 		{ collection: 'issue', via: 'journal' },
 
 
-    // ATTRIBUTE METHODS
+    // CUSTOM ATTRIBUTE METHODS
     getUri: function() { return 'http://ascelibrary.org/journal/' + this.abbrev; },
   }
 };

@@ -24,6 +24,7 @@
     "include-all": "^1.0.0",
     "jQuery": "^1.7.4",
     "node-xlsx": "^0.7.4",
+    "pdftotextjs": "^0.4.0",
     "pug": "^2.0.0-beta11",
     "rc": "1.0.1",
     "request": "^2.79.0",
