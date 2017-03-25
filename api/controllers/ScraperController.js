@@ -223,7 +223,7 @@ var insertArticle = function(article, callback){
 			}
 
 			// GET Issue
-			Issue.findOrCreate({ issue_number: article.number, volume_number: article.volume }).exec(function(err, issue) {
+			Issue.findOrCreate({ issue_number: article.number, volume_number: article.volume, journal: journal.id }).exec(function(err, issue) {
 				if (err) { console.log(err); }
 
 				issue.journal = journal.id;
