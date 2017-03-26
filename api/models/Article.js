@@ -28,15 +28,17 @@ module.exports = {
 
     // CUSTOM ATTRIBUTE METHODS
     process: function() {
-      if(this.filename) {
-        console.log("process local file");
-        this.processFile();
-      } else if(this.uri) {
-        console.log("get remote file");
-        this.getRemoteFile();
-      } else {
-        console.log("No file!");
-        console.log(this.name);
+      if( ! (this.processed == true)) {
+        if(this.filename) {
+          console.log("process local file");
+          this.processFile();
+        } else if(this.uri) {
+          console.log("get remote file");
+          this.getRemoteFile();
+        } else {
+          console.log("No file!");
+          console.log(this.name);
+        }
       }
     },
 
@@ -57,8 +59,10 @@ module.exports = {
 
           request({ uri, headers: {Cookie: cookies.ASCE }}).pipe(fs.createWriteStream(filepath)).on('close', function(){
             article.filename = filename;
-            article.save();
-            article.process();
+            article.save(function(err){
+              if(err) { console.log(err); }
+              article.process();
+            });
           });
         } else {
           console.log('No PDF available`!');
@@ -82,9 +86,7 @@ module.exports = {
           this.processed = true;
 
           this.save(function (err) {
-            if (err) {
-              console.log(err);
-            }
+            if (err) { console.log(err); }
           });
         } else {
           console.log("File does not exist");

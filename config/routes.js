@@ -32,7 +32,7 @@ module.exports.routes = {
   *                                                                          *
   ***************************************************************************/
 
-  'GET  /':                { view: 'homepage' },
+  'GET  /':                'MainController.home',
 
   'GET  /scraper':         { view: 'scraper/index' },
   'GET  /scraper/issues':  'ScraperController.scrapeIssues',
@@ -48,8 +48,6 @@ module.exports.routes = {
   'GET  /issue/:id':       'IssueController.show',
 
   'GET  /article/:id':     'ArticleController.show',
-
-  'GET  /test/meh':        'TestController.meh',
 
 
   /***************************************************************************

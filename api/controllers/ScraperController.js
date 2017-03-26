@@ -199,6 +199,8 @@ var upload = function(req, res) {
 			if (err) { throw err; }
 			console.log("");
 			console.log("All done!");
+			counter = 0;
+			articleCount = 0;
 		});
 
 	  return res.send(200, "Uploaded");
@@ -252,10 +254,13 @@ var insertArticle = function(article, callback){
 }
 
 var process = function(req, res) {
-	Article.find({ processed: { '!' : true }}).exec(function(err, articles) {
-		res.json(200, articles);
+	res.redirect('/');
 
+	Article.find({ processed: { '!' : true }}).exec(function(err, articles) {
+		if(err) { console.log(err); }
 		articleCount = articles.length;
+
+		console.log(articles);
 
 		async.eachSeries(articles, processArticle, function(err) {
 			if (err) { throw err; }
@@ -267,6 +272,8 @@ var process = function(req, res) {
 
 var processArticle = function(article, callback){
 	setTimeout(function(){
+		console.log('Process Article');
+		console.log(article);
 		article.process();
 		counter++
 		var percent = counter/articleCount*100;
@@ -275,13 +282,12 @@ var processArticle = function(article, callback){
 		console.log(percent + "%   " + counter + " of " + articleCount + " : " + article.name);
 
 		callback();
-	}, 2000);
+	}, 3000);
 }
 
 var test = function(req, res) {
-	Issue.findOne({ uri: 'http://ascelibrary.org/toc/jcemd4/138/7' }).populate('articles').exec(function(err, issue){
-		res.send(issue);
-	});
+	console.log('shit balls');
+	res.send('test');
 }
 
 
