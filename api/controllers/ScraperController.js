@@ -203,7 +203,7 @@ var upload = function(req, res) {
 			articleCount = 0;
 		});
 
-	  return res.send(200, "Uploaded");
+	  return res.redirect("/scraper");
 	});
 }
 
@@ -254,26 +254,30 @@ var insertArticle = function(article, callback){
 }
 
 var process = function(req, res) {
-	res.redirect('/');
-
 	Article.find({ processed: { '!' : true }}).exec(function(err, articles) {
 		if(err) { console.log(err); }
 		articleCount = articles.length;
 
-		console.log(articles);
+		//console.log(articleCount);
 
 		async.eachSeries(articles, processArticle, function(err) {
 			if (err) { throw err; }
+
 			console.log("");
 			console.log("Finished processing Articles!");
+
+			counter = 0;
+			articleCount = 0;
+
+			res.redirect('/');
 		});
 	});
 }
 
 var processArticle = function(article, callback){
 	setTimeout(function(){
-		console.log('Process Article');
-		console.log(article);
+		//console.log('Process Article');
+
 		article.process();
 		counter++
 		var percent = counter/articleCount*100;

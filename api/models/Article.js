@@ -28,30 +28,28 @@ module.exports = {
 
     // CUSTOM ATTRIBUTE METHODS
     process: function() {
-      if( ! (this.processed == true)) {
-        if(this.filename) {
-          console.log("process local file");
-          this.processFile();
-        } else if(this.uri) {
-          console.log("get remote file");
-          this.getRemoteFile();
-        } else {
-          console.log("No file!");
-          console.log(this.name);
-        }
+      if(this.filename) {
+        //console.log("process local file");
+        this.processFile();
+      } else if(this.uri) {
+        //console.log("get remote file");
+        this.getRemoteFile();
+      } else {
+        //console.log("No file!");
+        console.log(this.name);
       }
     },
 
     getRemoteFile: function() {
       var article = this;
       var uri = this.uri;
-      console.log(uri);
+      //console.log(uri);
       var req = request.head({ uri, headers: {Cookie: cookies.ASCE }}, function(error, response, html) {
         if(error){ console.log(error); }
 
         if(response.headers['content-type'] == "application/pdf; charset=UTF-8" || response.headers['content-type'] == "application/pdf") {
           // RECEIVED A PDF
-          console.log('PDF Available!');
+          //console.log('PDF Available!');
 
           var dirname = path.resolve(sails.config.appPath, 'uploads');
           var filename = Math.random().toString(36).substring(3) + ".pdf";
@@ -73,12 +71,12 @@ module.exports = {
     processFile: function() {
       var article = this;
       if(!this.processed) {
-        console.log('PROCESS FILE!');
+        //console.log('PROCESS FILE!');
         var dirname = path.resolve(sails.config.appPath, 'uploads');
         var filepath = dirname + "/" + this.filename;
 
         if (fs.existsSync(filepath)) {
-          console.log('FILE EXISTS!');
+          //console.log('FILE EXISTS!');
 
           var pdf = new pdftotext(filepath);
           var text = pdf.getTextSync().toString('utf8');
@@ -87,6 +85,10 @@ module.exports = {
 
           this.save(function (err) {
             if (err) { console.log(err); }
+
+            fs.unlink(filepath, function(err){
+              if(err) { console.log(err); }
+            });
           });
         } else {
           console.log("File does not exist");
