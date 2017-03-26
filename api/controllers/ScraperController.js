@@ -269,7 +269,7 @@ var process = function(req, res) {
 			counter = 0;
 			articleCount = 0;
 
-			res.redirect('/');
+			res.redirect('/scraper');
 		});
 	});
 }
