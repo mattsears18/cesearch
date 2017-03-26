@@ -286,7 +286,7 @@ var processArticle = function(article, callback){
 		console.log(percent + "%   " + counter + " of " + articleCount + " : " + article.name);
 
 		callback();
-	}, 3000);
+	}, 10000);
 }
 
 var test = function(req, res) {

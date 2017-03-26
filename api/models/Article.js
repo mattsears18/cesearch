@@ -43,11 +43,28 @@ module.exports = {
     getRemoteFile: function() {
       var article = this;
       var uri = this.uri;
-      //console.log(uri);
-      var req = request.head({ uri, headers: {Cookie: cookies.ASCE }}, function(error, response, html) {
+      console.log(uri);
+      var cookie;
+
+      if(!article.source) {
+        cookie = cookies.ASCE;
+      } else if(article.source == "OCLC") {
+        cookie = cookies.OCLC;
+      }
+
+      var options = {
+        uri,
+        headers: { Cookie: cookie }
+      };
+
+      //console.log(options);
+
+      var req = request.head(options, function(error, response, html) {
         if(error){ console.log(error); }
 
-        if(response.headers['content-type'] == "application/pdf; charset=UTF-8" || response.headers['content-type'] == "application/pdf") {
+        //console.log(response);
+
+        if(response.headers && response.headers['content-type'] == "application/pdf; charset=UTF-8" || response.headers['content-type'] == "application/pdf") {
           // RECEIVED A PDF
           //console.log('PDF Available!');
 
@@ -55,7 +72,7 @@ module.exports = {
           var filename = Math.random().toString(36).substring(3) + ".pdf";
           var filepath = dirname + "/" + filename;
 
-          request({ uri, headers: {Cookie: cookies.ASCE }}).pipe(fs.createWriteStream(filepath)).on('close', function(){
+          request(options).pipe(fs.createWriteStream(filepath)).on('close', function(){
             article.filename = filename;
             article.save(function(err){
               if(err) { console.log(err); }
@@ -64,6 +81,12 @@ module.exports = {
           });
         } else {
           console.log('No PDF available`!');
+
+          article.uri = article.uri.replace('http://ascelibrary.org/', 'http://ascelibrary.org.colorado.idm.oclc.org/');
+          article.source = "OCLC";
+          console.log(article.uri);
+
+          article.getRemoteFile();
         }
       });
     },
